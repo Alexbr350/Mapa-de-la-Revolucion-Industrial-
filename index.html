@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mapa Interactivo de la Revolución Industrial</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    /* Estilo general de la página */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f9;
+      color: #333;
+    }
+
+    h1 {
+      text-align: center;
+      padding: 20px;
+      background-color: #4CAF50;
+      color: white;
+      margin: 0;
+    }
+
+    p {
+      text-align: center;
+      font-size: 1.2em;
+      margin: 10px 20px;
+    }
+
+    #map {
+      height: 600px;
+      width: 100%;
+      margin: 20px auto;
+      border: 2px solid #4CAF50;
+      border-radius: 8px;
+    }
+
+    /* Estilo de los popups */
+    .info {
+      background: white;
+      padding: 10px;
+      border-radius: 5px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.3);
+      font-size: 0.9em;
+    }
+
+    .info strong {
+      font-size: 1.1em;
+      color: #4CAF50;
+    }
+  </style>
+</head>
+<body>
+  <h1>Mapa Interactivo de la Revolución Industrial</h1>
+  <p>Explora las ubicaciones clave de la Primera y Segunda Revolución Industrial en este mapa interactivo.</p>
+  <div id="map"></div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    // Inicializar el mapa
+    const map = L.map('map').setView([51.505, -0.09], 5); // Coordenadas iniciales
+
+    // Agregar el mapa base
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 18,
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Datos de las ubicaciones
+    const locations = [
+      {
+        name: "Manchester (Primera Revolución Industrial)",
+        coords: [53.4808, -2.2426],
+        description: "Centro textil y uno de los principales ejemplos de urbanización durante la primera etapa."
+      },
+      {
+        name: "Londres (Primera Revolución Industrial)",
+        coords: [51.5074, -0.1278],
+        description: "Centro financiero y político que impulsó la industrialización."
+      },
+      {
+        name: "Birmingham (Primera Revolución Industrial)",
+        coords: [52.4862, -1.8904],
+        description: "Famosa por la producción de hierro y maquinaria."
+      },
+      {
+        name: "Detroit (Segunda Revolución Industrial)",
+        coords: [42.3314, -83.0458],
+        description: "Centro de la industria automotriz en los Estados Unidos."
+      },
+      {
+        name: "Berlín (Segunda Revolución Industrial)",
+        coords: [52.5200, 13.4050],
+        description: "Importante por la producción química y eléctrica."
+      },
+      {
+        name: "Pittsburgh (Segunda Revolución Industrial)",
+        coords: [40.4406, -79.9959],
+        description: "Principal centro de la industria siderúrgica en Estados Unidos."
+      }
+    ];
+
+    // Agregar los marcadores
+    locations.forEach(location => {
+      const marker = L.marker(location.coords).addTo(map);
+      marker.bindPopup(`<div class="info"><strong>${location.name}</strong><br>${location.description}</div>`);
+    });
+  </script>
+</body>
+</html>
