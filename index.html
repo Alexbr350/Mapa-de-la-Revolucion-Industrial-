@@ -52,7 +52,72 @@
 </head>
 <body>
   <h1>Mapa Interactivo de la Revolución Industrial</h1>
-  <p>Explora las ubicaciones clave del capitalismo durante la Primera (1750-1840) y Segunda (1880-1914) Revolución Industrial.</p>
+  <p>Explora las ubicaciones clave del capitalismo durante la Primera (1750-1840) y Segunda (1880-1914) Revolución Industrial, incluyendo información sobre las condiciones de trabajo, expansión, sistema económico y nacionalismo.</p>
+  <div id="map"></div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    // Inicializar el mapa
+    const map = L.map('map').setView([51.505, -0.09], 5);
+
+    // Agregar mapa base
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 18,
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mapa Interactivo de la Revolución Industrial</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f9;
+      color: #333;
+    }
+
+    h1 {
+      text-align: center;
+      padding: 20px;
+      background-color: #4CAF50;
+      color: white;
+      margin: 0;
+    }
+
+    p {
+      text-align: center;
+      font-size: 1.2em;
+      margin: 10px 20px;
+    }
+
+    #map {
+      height: 600px;
+      width: 100%;
+      margin: 20px auto;
+      border: 2px solid #4CAF50;
+      border-radius: 8px;
+    }
+
+    .info {
+      background: white;
+      padding: 10px;
+      border-radius: 5px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.3);
+      font-size: 0.9em;
+    }
+
+    .info strong {
+      font-size: 1.1em;
+      color: #4CAF50;
+    }
+  </style>
+</head>
+<body>
+  <h1>Mapa Interactivo de la Revolución Industrial</h1>
+  <p>Explora las ubicaciones clave del capitalismo durante la Primera (1750-1840) y Segunda (1880-1914) Revolución Industrial, incluyendo información sobre las condiciones de trabajo, expansión, sistema económico y nacionalismo.</p>
   <div id="map"></div>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -73,52 +138,67 @@
     // Ubicaciones de la Primera Revolución Industrial
     const primeraRevolucion = [
       {
-        name: "Manchester (Primera Revolución Industrial)",
+        name: "Reino Unido",
         coords: [53.4808, -2.2426],
-        description: "Centro textil y uno de los principales ejemplos de urbanización durante la primera etapa."
-      },
-      {
-        name: "Londres (Primera Revolución Industrial)",
-        coords: [51.5074, -0.1278],
-        description: "Centro financiero y político que impulsó la industrialización."
-      },
-      {
-        name: "Birmingham (Primera Revolución Industrial)",
-        coords: [52.4862, -1.8904],
-        description: "Famosa por la producción de hierro y maquinaria."
+        description: `
+          <strong>Primera Revolución Industrial</strong><br>
+          <em>Manchester, Londres y Birmingham</em><br>
+          <ul>
+            <li><strong>Condiciones de trabajo:</strong> Jornadas de 12-16 horas, trabajo infantil, bajos salarios y condiciones inseguras.</li>
+            <li><strong>Capitalismo:</strong> Surgió la producción en masa y el sistema fabril, transformando la economía de agrícola a industrial.</li>
+            <li><strong>Expansión:</strong> El Reino Unido lideró el comercio global mediante colonias y control de rutas marítimas.</li>
+            <li><strong>Sistema económico:</strong> Basado en la propiedad privada, competencia y libre mercado.</li>
+            <li><strong>Nacionalismo:</strong> Fomentado por su liderazgo económico y tecnológico.</li>
+          </ul>
+        `
       }
     ];
 
     // Ubicaciones de la Segunda Revolución Industrial
     const segundaRevolucion = [
       {
-        name: "Detroit (Segunda Revolución Industrial)",
-        coords: [42.3314, -83.0458],
-        description: "Centro de la industria automotriz en los Estados Unidos."
-      },
-      {
-        name: "Berlín (Segunda Revolución Industrial)",
+        name: "Alemania",
         coords: [52.5200, 13.4050],
-        description: "Importante por la producción química y eléctrica."
+        description: `
+          <strong>Segunda Revolución Industrial</strong><br>
+          <em>Berlín</em><br>
+          <ul>
+            <li><strong>Condiciones de trabajo:</strong> Persistieron largas jornadas, pero se introdujeron sindicatos y leyes laborales.</li>
+            <li><strong>Capitalismo:</strong> Desarrollo de industrias químicas, eléctricas y automotrices, con la consolidación de grandes monopolios.</li>
+            <li><strong>Expansión:</strong> Alemania se convirtió en una potencia industrial, compitiendo con el Reino Unido y Estados Unidos.</li>
+            <li><strong>Sistema económico:</strong> Capitalismo mixto con apoyo estatal a la industrialización.</li>
+            <li><strong>Nacionalismo:</strong> Alimentado por el deseo de rivalizar con otras potencias europeas.</li>
+          </ul>
+        `
       },
       {
-        name: "Pittsburgh (Segunda Revolución Industrial)",
+        name: "Estados Unidos",
         coords: [40.4406, -79.9959],
-        description: "Principal centro de la industria siderúrgica en Estados Unidos."
+        description: `
+          <strong>Segunda Revolución Industrial</strong><br>
+          <em>Pittsburgh y Detroit</em><br>
+          <ul>
+            <li><strong>Condiciones de trabajo:</strong> Similar a Europa, pero con una mayor integración de inmigrantes y menor regulación inicial.</li>
+            <li><strong>Capitalismo:</strong> Desarrollo de la industria automotriz (Detroit) y siderúrgica (Pittsburgh).</li>
+            <li><strong>Expansión:</strong> Estados Unidos emergió como potencia global gracias a sus vastos recursos naturales.</li>
+            <li><strong>Sistema económico:</strong> Dominado por el laissez-faire con grandes corporaciones como Rockefeller y Carnegie.</li>
+            <li><strong>Nacionalismo:</strong> Impulsado por el "Destino Manifiesto" y el liderazgo industrial.</li>
+          </ul>
+        `
       }
     ];
 
     // Agregar marcadores de la Primera Revolución Industrial
     primeraRevolucion.forEach(location => {
       L.marker(location.coords)
-        .bindPopup(`<div class="info"><strong>${location.name}</strong><br>${location.description}</div>`)
+        .bindPopup(`<div class="info">${location.description}</div>`)
         .addTo(primeraRevolucionLayer);
     });
 
     // Agregar marcadores de la Segunda Revolución Industrial
     segundaRevolucion.forEach(location => {
       L.marker(location.coords)
-        .bindPopup(`<div class="info"><strong>${location.name}</strong><br>${location.description}</div>`)
+        .bindPopup(`<div class="info">${location.description}</div>`)
         .addTo(segundaRevolucionLayer);
     });
 
