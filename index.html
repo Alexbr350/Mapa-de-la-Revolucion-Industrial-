@@ -6,6 +6,7 @@
   <title>Mapa Interactivo de la Revolución Industrial</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <style>
+    /* Estilo general de la página */
     body {
       font-family: Arial, sans-serif;
       margin: 0;
@@ -36,6 +37,7 @@
       border-radius: 8px;
     }
 
+    /* Estilo de los popups */
     .info {
       background: white;
       padding: 10px;
@@ -52,166 +54,100 @@
 </head>
 <body>
   <h1>Mapa Interactivo de la Revolución Industrial</h1>
-  <p>Explora las ubicaciones clave del capitalismo durante la Primera (1750-1840) y Segunda (1880-1914) Revolución Industrial, incluyendo información sobre las condiciones de trabajo, expansión, sistema económico y nacionalismo.</p>
+  <p>Explora las ubicaciones clave de la Primera y Segunda Revolución Industrial en este mapa interactivo.</p>
   <div id="map"></div>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
     // Inicializar el mapa
-    const map = L.map('map').setView([51.505, -0.09], 5);
+    const map = L.map('map').setView([51.505, -0.09], 5); // Coordenadas iniciales
 
-    // Agregar mapa base
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 18,
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mapa Interactivo de la Revolución Industrial</title>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f4f4f9;
-      color: #333;
-    }
-
-    h1 {
-      text-align: center;
-      padding: 20px;
-      background-color: #4CAF50;
-      color: white;
-      margin: 0;
-    }
-
-    p {
-      text-align: center;
-      font-size: 1.2em;
-      margin: 10px 20px;
-    }
-
-    #map {
-      height: 600px;
-      width: 100%;
-      margin: 20px auto;
-      border: 2px solid #4CAF50;
-      border-radius: 8px;
-    }
-
-    .info {
-      background: white;
-      padding: 10px;
-      border-radius: 5px;
-      box-shadow: 0 0 5px rgba(0,0,0,0.3);
-      font-size: 0.9em;
-    }
-
-    .info strong {
-      font-size: 1.1em;
-      color: #4CAF50;
-    }
-  </style>
-</head>
-<body>
-  <h1>Mapa Interactivo de la Revolución Industrial</h1>
-  <p>Explora las ubicaciones clave del capitalismo durante la Primera (1750-1840) y Segunda (1880-1914) Revolución Industrial, incluyendo información sobre las condiciones de trabajo, expansión, sistema económico y nacionalismo.</p>
-  <div id="map"></div>
-
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script>
-    // Inicializar el mapa
-    const map = L.map('map').setView([51.505, -0.09], 5);
-
-    // Agregar mapa base
+    // Agregar el mapa base
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 18,
       attribution: '© OpenStreetMap contributors'
     }).addTo(map);
 
-    // Capas para cada etapa
-    const primeraRevolucionLayer = L.layerGroup();
-    const segundaRevolucionLayer = L.layerGroup();
-
-    // Ubicaciones de la Primera Revolución Industrial
-    const primeraRevolucion = [
+    // Datos de las ubicaciones
+    const locations = [
       {
-        name: "Reino Unido",
+        name: "Manchester (Primera Revolución Industrial)",
         coords: [53.4808, -2.2426],
         description: `
-          <strong>Primera Revolución Industrial</strong><br>
-          <em>Manchester, Londres y Birmingham</em><br>
-          <ul>
-            <li><strong>Condiciones de trabajo:</strong> Jornadas de 12-16 horas, trabajo infantil, bajos salarios y condiciones inseguras.</li>
-            <li><strong>Capitalismo:</strong> Surgió la producción en masa y el sistema fabril, transformando la economía de agrícola a industrial.</li>
-            <li><strong>Expansión:</strong> El Reino Unido lideró el comercio global mediante colonias y control de rutas marítimas.</li>
-            <li><strong>Sistema económico:</strong> Basado en la propiedad privada, competencia y libre mercado.</li>
-            <li><strong>Nacionalismo:</strong> Fomentado por su liderazgo económico y tecnológico.</li>
-          </ul>
-        `
-      }
-    ];
-
-    // Ubicaciones de la Segunda Revolución Industrial
-    const segundaRevolucion = [
-      {
-        name: "Alemania",
-        coords: [52.5200, 13.4050],
-        description: `
-          <strong>Segunda Revolución Industrial</strong><br>
-          <em>Berlín</em><br>
-          <ul>
-            <li><strong>Condiciones de trabajo:</strong> Persistieron largas jornadas, pero se introdujeron sindicatos y leyes laborales.</li>
-            <li><strong>Capitalismo:</strong> Desarrollo de industrias químicas, eléctricas y automotrices, con la consolidación de grandes monopolios.</li>
-            <li><strong>Expansión:</strong> Alemania se convirtió en una potencia industrial, compitiendo con el Reino Unido y Estados Unidos.</li>
-            <li><strong>Sistema económico:</strong> Capitalismo mixto con apoyo estatal a la industrialización.</li>
-            <li><strong>Nacionalismo:</strong> Alimentado por el deseo de rivalizar con otras potencias europeas.</li>
-          </ul>
+          Centro textil y uno de los principales ejemplos de urbanización durante la primera etapa.<br>
+          <strong>Condiciones de trabajo:</strong> Jornadas de 12-16 horas, trabajo infantil, y malas condiciones de seguridad.<br>
+          <strong>Capitalismo:</strong> Surgió en el siglo XVII en Inglaterra, reemplazando al feudalismo. Según Adam Smith, el ser humano tiene una tendencia natural al intercambio, lo que permitió el desarrollo de un orden social y económico basado en la propiedad privada.<br>
+          <strong>Expansión:</strong> Gracias al comercio global, rutas marítimas y colonización, el capitalismo se consolidó como un sistema expansionista.<br>
+          <strong>Sistema económico:</strong> Basado en propiedad privada y libre mercado.<br>
+          <strong>Nacionalismo:</strong> El liderazgo industrial fortaleció la identidad nacional del Reino Unido.
         `
       },
       {
-        name: "Estados Unidos",
+        name: "Londres (Primera Revolución Industrial)",
+        coords: [51.5074, -0.1278],
+        description: `
+          Centro financiero y político que impulsó la industrialización.<br>
+          <strong>Condiciones de trabajo:</strong> Trabajo en fábricas con largas jornadas y bajo salario.<br>
+          <strong>Capitalismo:</strong> Londres fue el epicentro del comercio global, reflejando la importancia de la propiedad privada y el libre mercado.<br>
+          <strong>Expansión:</strong> La colonización y las rutas marítimas británicas facilitaron la difusión del capitalismo.<br>
+          <strong>Nacionalismo:</strong> La supremacía económica reforzó el orgullo nacional británico y su rol como potencia mundial.
+        `
+      },
+      {
+        name: "Birmingham (Primera Revolución Industrial)",
+        coords: [52.4862, -1.8904],
+        description: `
+          Famosa por la producción de hierro y maquinaria.<br>
+          <strong>Condiciones de trabajo:</strong> Condiciones precarias, sin derechos laborales y con riesgo constante en las fábricas.<br>
+          <strong>Capitalismo:</strong> El desarrollo industrial reflejó la importancia del capital privado en la creación de nuevas tecnologías.<br>
+          <strong>Expansión:</strong> Exportación de maquinaria a otras regiones y países.<br>
+          <strong>Sistema económico:</strong> Dominado por empresarios privados que impulsaron la industria pesada.<br>
+          <strong>Nacionalismo:</strong> Birmingham se convirtió en símbolo del poder industrial británico.
+        `
+      },
+      {
+        name: "Detroit (Segunda Revolución Industrial)",
+        coords: [42.3314, -83.0458],
+        description: `
+          Centro de la industria automotriz en los Estados Unidos.<br>
+          <strong>Condiciones de trabajo:</strong> Jornadas largas, con avances en derechos laborales gracias a los sindicatos.<br>
+          <strong>Capitalismo:</strong> El capitalismo corporativo permitió la concentración de recursos en grandes empresas como Ford.<br>
+          <strong>Expansión:</strong> Producción en masa y exportación de vehículos a nivel global.<br>
+          <strong>Sistema económico:</strong> Economía de libre mercado, con énfasis en la innovación y la eficiencia.<br>
+          <strong>Nacionalismo:</strong> El liderazgo automotriz reforzó el orgullo nacional estadounidense.
+        `
+      },
+      {
+        name: "Berlín (Segunda Revolución Industrial)",
+        coords: [52.5200, 13.4050],
+        description: `
+          Importante por la producción química y eléctrica.<br>
+          <strong>Condiciones de trabajo:</strong> Mejora progresiva en condiciones laborales debido a leyes sociales.<br>
+          <strong>Capitalismo:</strong> Alemania adoptó un modelo mixto que combinó capital privado con apoyo estatal para innovaciones tecnológicas.<br>
+          <strong>Expansión:</strong> Exportaciones de productos químicos y eléctricos a todo el mundo.<br>
+          <strong>Sistema económico:</strong> Fuerte intervención estatal en sectores estratégicos.<br>
+          <strong>Nacionalismo:</strong> La industrialización reforzó la unidad alemana y su competitividad global.
+        `
+      },
+      {
+        name: "Pittsburgh (Segunda Revolución Industrial)",
         coords: [40.4406, -79.9959],
         description: `
-          <strong>Segunda Revolución Industrial</strong><br>
-          <em>Pittsburgh y Detroit</em><br>
-          <ul>
-            <li><strong>Condiciones de trabajo:</strong> Similar a Europa, pero con una mayor integración de inmigrantes y menor regulación inicial.</li>
-            <li><strong>Capitalismo:</strong> Desarrollo de la industria automotriz (Detroit) y siderúrgica (Pittsburgh).</li>
-            <li><strong>Expansión:</strong> Estados Unidos emergió como potencia global gracias a sus vastos recursos naturales.</li>
-            <li><strong>Sistema económico:</strong> Dominado por el laissez-faire con grandes corporaciones como Rockefeller y Carnegie.</li>
-            <li><strong>Nacionalismo:</strong> Impulsado por el "Destino Manifiesto" y el liderazgo industrial.</li>
-          </ul>
+          Principal centro de la industria siderúrgica en Estados Unidos.<br>
+          <strong>Condiciones de trabajo:</strong> Explotación de inmigrantes y condiciones duras en fábricas.<br>
+          <strong>Capitalismo:</strong> Dominado por magnates como Carnegie, reflejando la concentración de poder económico en pocas manos.<br>
+          <strong>Expansión:</strong> Exportación de acero para infraestructuras globales.<br>
+          <strong>Sistema económico:</strong> Libre mercado con grandes monopolios industriales.<br>
+          <strong>Nacionalismo:</strong> La industria siderúrgica se convirtió en un símbolo del poderío económico de Estados Unidos.
         `
       }
     ];
 
-    // Agregar marcadores de la Primera Revolución Industrial
-    primeraRevolucion.forEach(location => {
-      L.marker(location.coords)
-        .bindPopup(`<div class="info">${location.description}</div>`)
-        .addTo(primeraRevolucionLayer);
+    // Agregar los marcadores
+    locations.forEach(location => {
+      const marker = L.marker(location.coords).addTo(map);
+      marker.bindPopup(`<div class="info">${location.description}</div>`);
     });
-
-    // Agregar marcadores de la Segunda Revolución Industrial
-    segundaRevolucion.forEach(location => {
-      L.marker(location.coords)
-        .bindPopup(`<div class="info">${location.description}</div>`)
-        .addTo(segundaRevolucionLayer);
-    });
-
-    // Añadir las capas al mapa
-    primeraRevolucionLayer.addTo(map);
-
-    // Control de capas
-    const overlays = {
-      "Primera Revolución Industrial (1750-1840)": primeraRevolucionLayer,
-      "Segunda Revolución Industrial (1880-1914)": segundaRevolucionLayer
-    };
-    L.control.layers(null, overlays, { collapsed: false }).addTo(map);
   </script>
 </body>
 </html>
-
