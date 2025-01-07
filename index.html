@@ -6,7 +6,6 @@
   <title>Mapa Interactivo de la Revolución Industrial</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <style>
-    /* Estilo general de la página */
     body {
       font-family: Arial, sans-serif;
       margin: 0;
@@ -37,7 +36,6 @@
       border-radius: 8px;
     }
 
-    /* Estilo de los popups */
     .info {
       background: white;
       padding: 10px;
@@ -54,22 +52,26 @@
 </head>
 <body>
   <h1>Mapa Interactivo de la Revolución Industrial</h1>
-  <p>Explora las ubicaciones clave de la Primera y Segunda Revolución Industrial en este mapa interactivo.</p>
+  <p>Explora las ubicaciones clave del capitalismo durante la Primera (1750-1840) y Segunda (1880-1914) Revolución Industrial.</p>
   <div id="map"></div>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
     // Inicializar el mapa
-    const map = L.map('map').setView([51.505, -0.09], 5); // Coordenadas iniciales
+    const map = L.map('map').setView([51.505, -0.09], 5);
 
-    // Agregar el mapa base
+    // Agregar mapa base
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 18,
       attribution: '© OpenStreetMap contributors'
     }).addTo(map);
 
-    // Datos de las ubicaciones
-    const locations = [
+    // Capas para cada etapa
+    const primeraRevolucionLayer = L.layerGroup();
+    const segundaRevolucionLayer = L.layerGroup();
+
+    // Ubicaciones de la Primera Revolución Industrial
+    const primeraRevolucion = [
       {
         name: "Manchester (Primera Revolución Industrial)",
         coords: [53.4808, -2.2426],
@@ -84,7 +86,11 @@
         name: "Birmingham (Primera Revolución Industrial)",
         coords: [52.4862, -1.8904],
         description: "Famosa por la producción de hierro y maquinaria."
-      },
+      }
+    ];
+
+    // Ubicaciones de la Segunda Revolución Industrial
+    const segundaRevolucion = [
       {
         name: "Detroit (Segunda Revolución Industrial)",
         coords: [42.3314, -83.0458],
@@ -102,11 +108,30 @@
       }
     ];
 
-    // Agregar los marcadores
-    locations.forEach(location => {
-      const marker = L.marker(location.coords).addTo(map);
-      marker.bindPopup(`<div class="info"><strong>${location.name}</strong><br>${location.description}</div>`);
+    // Agregar marcadores de la Primera Revolución Industrial
+    primeraRevolucion.forEach(location => {
+      L.marker(location.coords)
+        .bindPopup(`<div class="info"><strong>${location.name}</strong><br>${location.description}</div>`)
+        .addTo(primeraRevolucionLayer);
     });
+
+    // Agregar marcadores de la Segunda Revolución Industrial
+    segundaRevolucion.forEach(location => {
+      L.marker(location.coords)
+        .bindPopup(`<div class="info"><strong>${location.name}</strong><br>${location.description}</div>`)
+        .addTo(segundaRevolucionLayer);
+    });
+
+    // Añadir las capas al mapa
+    primeraRevolucionLayer.addTo(map);
+
+    // Control de capas
+    const overlays = {
+      "Primera Revolución Industrial (1750-1840)": primeraRevolucionLayer,
+      "Segunda Revolución Industrial (1880-1914)": segundaRevolucionLayer
+    };
+    L.control.layers(null, overlays, { collapsed: false }).addTo(map);
   </script>
 </body>
 </html>
+
